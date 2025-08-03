@@ -1,4 +1,6 @@
-# Full Stack Project
+# Full Stack Travel Booking Application
+
+This is a full-stack web application built with **React JS (frontend)**, **Spring Boot (backend)**, and **MySQL (database)**. 
 
 ## 📂 Structure
 
