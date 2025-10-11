@@ -1,0 +1,56 @@
+package com.toursandtravel.dto;
+
+import org.springframework.beans.BeanUtils;
+
+import com.toursandtravel.entity.User;
+
+import lombok.Data;
+
+//@Data
+//public class RegisterUserRequestDto {
+//
+//	private String firstName;
+//
+//	private String lastName;
+//
+//	private String emailId;
+//
+//	private String password;
+//
+//	private String phoneNo;
+//
+//	private String role;
+//
+//	private String street;
+//
+//	private String city;
+//
+//	private int pincode;
+//
+//	public static User toUserEntity(RegisterUserRequestDto registerUserRequestDto) {
+//		User user = new User();
+//		BeanUtils.copyProperties(registerUserRequestDto, user);
+//		return user;
+//	}
+//
+//}
+@Data
+public class RegisterUserRequestDto {
+
+	private String firstName;
+	private String lastName;
+	private String emailId;
+	private String password;
+	private String phoneNo;
+	private String role;
+
+	private String street;
+	private String city;
+	private String pincode; // ✅ String (Mongo doesn’t care about number indexing unless you need it numeric)
+
+	public static User toUserEntity(RegisterUserRequestDto registerUserRequestDto) {
+		User user = new User();
+		BeanUtils.copyProperties(registerUserRequestDto, user);
+		return user;
+	}
+}
