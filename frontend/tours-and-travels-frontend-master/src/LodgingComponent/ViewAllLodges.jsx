@@ -3,6 +3,8 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "../TourComponent/ActionButtons.css";
+import "../styles/TableStyles.css";
 
 const ViewAllLodges = () => {
   const [allLodges, setAllCategories] = useState([]);
@@ -92,73 +94,58 @@ const ViewAllLodges = () => {
   };
 
   return (
-    <div className="mt-3">
-      <div
-        className="card form-card ms-2 me-2 mb-5 shadow-lg"
-        style={{
-          height: "45rem",
-        }}
-      >
-        <div
-          className="card-header custom-bg-text text-center bg-color"
-          style={{
-            borderRadius: "1em",
-            height: "50px",
-          }}
-        >
-          <h2>All Tour Lodges</h2>
-        </div>
-        <div
-          className="card-body"
-          style={{
-            overflowY: "auto",
-          }}
-        >
-          <div className="table-responsive">
-            <table className="table table-hover text-color text-center">
-              <thead className="table-bordered border-color bg-color custom-bg-text">
-                <tr>
-                  <th scope="col">Lodge Id</th>
-                  <th scope="col">Lodge Type</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allLodges.map((lodge) => {
-                  return (
-                    <tr>
-                      <td>
-                        <b>{lodge.id}</b>
-                      </td>
-                      <td>
-                        <b>{lodge.type}</b>
-                      </td>
-                      <td>
-                        <b>{lodge.description}</b>
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => updateLodge(lodge)}
-                          className="btn btn-sm bg-color custom-bg-text ms-2"
-                        >
-                          Update
-                        </button>
+    <div className="saas-table-container">
+      <div className="saas-table-header">
+        <h2 className="saas-table-title">All Tour Lodges</h2>
+        <button className="saas-add-button">
+          <span>+</span> New Lodge
+        </button>
+      </div>
+      <div className="saas-table-body">
+        <table className="saas-table">
+          <thead>
+            <tr>
+              <th>Lodge Id</th>
+              <th>Lodge Type</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allLodges.map((lodge) => {
+              return (
+                <tr key={lodge.id}>
+                  <td>
+                    <span className="saas-table-text-secondary">{lodge.id}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">{lodge.type}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{lodge.description}</span>
+                  </td>
+                  <td>
+                    <div className="action-buttons">
+                      <button
+                        onClick={() => updateLodge(lodge)}
+                        className="btn-action btn-update btn-sm"
+                      >
+                        Update
+                      </button>
 
-                        <button
-                          onClick={() => deleteLodge(lodge.id)}
-                          className="btn btn-sm bg-color custom-bg-text ms-2"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                      <button
+                        onClick={() => deleteLodge(lodge.id)}
+                        className="btn-action btn-delete btn-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

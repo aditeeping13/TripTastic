@@ -3,6 +3,7 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import "../styles/TableStyles.css";
 
 const ViewAllTourBookings = () => {
   const [allTourBookings, setAllTourBookings] = useState([
@@ -35,7 +36,7 @@ const ViewAllTourBookings = () => {
   useEffect(() => {
     const getAllTourBookings = async () => {
       const allToursBookings = await retrieveAllTourBookings();
-      if (allToursBookings) {
+      if (allToursBookings && allToursBookings.bookings) {
         setAllTourBookings(allToursBookings.bookings);
       }
     };
@@ -44,11 +45,16 @@ const ViewAllTourBookings = () => {
   }, []);
 
   const retrieveAllTourBookings = async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_URL}/api/tour/booking/fetch/all`
-    );
-    console.log(response.data);
-    return response.data;
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_URL}/api/tour/booking/fetch/all`
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching tour bookings:", error);
+      return null;
+    }
   };
 
   const formatDateFromEpoch = (epochTime) => {
@@ -59,119 +65,98 @@ const ViewAllTourBookings = () => {
   };
 
   return (
-    <div className="mt-3">
-      <div
-        className="card form-card ms-2 me-2 mb-5 shadow-lg"
-        style={{
-          height: "45rem",
-        }}
-      >
-        <div
-          className="card-header custom-bg-text text-center bg-color"
-          style={{
-            borderRadius: "1em",
-            height: "50px",
-          }}
-        >
-          <h2>My Tour Bookings</h2>
-        </div>
-        <div
-          className="card-body"
-          style={{
-            overflowY: "auto",
-          }}
-        >
-          <div className="table-responsive">
-            <table className="table table-hover text-color text-center">
-              <thead className="table-bordered border-color bg-color custom-bg-text">
-                <tr>
-                  <th scope="col">Tour</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Tour Guide</th>
-                  <th scope="col">Customer Name</th>
-                  <th scope="col">Tour Date</th>
-                  <th scope="col">From Location</th>
-                  <th scope="col">To Location</th>
-                  <th scope="col">Price (per ticket)</th>
-                  <th scope="col">Total Tickets</th>
-                  <th scope="col">Total Ticket Price</th>
-                  <th scope="col">Booking Time</th>
-                  <th scope="col">Booking Id</th>
-                  <th scope="col">Status</th>
+    <div className="saas-table-container">
+      <div className="saas-table-header">
+        <h2 className="saas-table-title">All Tour Bookings</h2>
+      </div>
+      <div className="saas-table-body">
+        <table className="saas-table">
+          <thead>
+            <tr>
+              <th>Tour</th>
+              <th>Name</th>
+              <th>Tour Guide</th>
+              <th>Customer Name</th>
+              <th>Tour Date</th>
+              <th>From Location</th>
+              <th>To Location</th>
+              <th>Price (per ticket)</th>
+              <th>Total Tickets</th>
+              <th>Total Price</th>
+              <th>Booking Time</th>
+              <th>Booking Id</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allTourBookings.map((booking) => {
+              return (
+                <tr key={booking.id}>
+                  <td>
+                    <img
+                      src={
+                        `${process.env.REACT_APP_URL}/api/tour/` +
+                        booking.tour.image1
+                      }
+                      className="saas-table-image"
+                      alt="tour_pic"
+                    />
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">{booking.tour.name}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">
+                      {booking.tour.guide.firstName +
+                        " " +
+                        booking.tour.guide.lastName}
+                    </span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">
+                      {booking.customer.firstName +
+                        " " +
+                        booking.customer.lastName}
+                    </span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">
+                      {formatDateFromEpoch(booking.tour.startDate) +
+                        " - " +
+                        formatDateFromEpoch(booking.tour.endDate)}
+                    </span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{booking.tour.fromLocation.name}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{booking.tour.toLocation.name}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">₹{booking.tour.ticketPrice}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{booking.noOfTickets}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">₹{booking.noOfTickets * booking.tour.ticketPrice}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{formatDateFromEpoch(booking.bookingTime)}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{booking.bookingId}</span>
+                  </td>
+                  <td>
+                    <span className={`saas-status-badge ${booking.status ? `saas-status-${booking.status.toLowerCase()}` : 'saas-status-pending'}`}>
+                      {booking.status || 'Pending'}
+                    </span>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {allTourBookings.map((booking) => {
-                  return (
-                    <tr>
-                      <td>
-                        <img
-                          src={
-                            `${process.env.REACT_APP_URL}/api/tour/` +
-                            booking.tour.image1
-                          }
-                          class="img-fluid"
-                          alt="event_pic"
-                          style={{
-                            maxHeight: "90px",
-                          }}
-                        />
-                      </td>
-                      <td>
-                        <b>{booking.tour.name}</b>
-                      </td>
-                      <td>
-                        <b>
-                          {booking.tour.guide.firstName +
-                            " " +
-                            booking.tour.guide.lastName}
-                        </b>
-                      </td>
-                      <td>
-                        <b>
-                          {booking.customer.firstName +
-                            " " +
-                            booking.customer.lastName}
-                        </b>
-                      </td>
-                      <td>
-                        <b>
-                          {formatDateFromEpoch(booking.tour.startDate) +
-                            " - " +
-                            formatDateFromEpoch(booking.tour.endDate)}
-                        </b>
-                      </td>
-                      <td>
-                        <b>{booking.tour.fromLocation.name}</b>
-                      </td>
-                      <td>
-                        <b>{booking.tour.toLocation.name}</b>
-                      </td>
-                      <td>
-                        <b>{booking.tour.ticketPrice}</b>
-                      </td>
-                      <td>
-                        <b>{booking.noOfTickets}</b>
-                      </td>
-                      <td>
-                        <b>{booking.noOfTickets * booking.tour.ticketPrice}</b>
-                      </td>
-                      <td>
-                        <b>{formatDateFromEpoch(booking.bookingTime)}</b>
-                      </td>
-                      <td>
-                        <b>{booking.bookingId}</b>
-                      </td>
-                      <td>
-                        <b>{booking.status}</b>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

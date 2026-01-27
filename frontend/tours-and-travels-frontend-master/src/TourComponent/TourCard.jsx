@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import dollor from "../images/dollor_logo.png";
-import timing from "../images/timing_logo.png";
-import experience from "../images/experience_logo.png";
+import "./TourCard.css";
 
 const TourCard = (tour) => {
   const descriptionToShow = (description, maxLength) => {
@@ -15,79 +13,68 @@ const TourCard = (tour) => {
 
   const formatDateFromEpoch = (epochTime) => {
     const date = new Date(Number(epochTime));
-    const formattedDate = date.toLocaleString(); // Adjust the format as needed
-
-    return formattedDate;
+    const options = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    return date.toLocaleDateString('en-US', options);
   };
 
   return (
     <div className="col">
       <Link
         to={`/tour/${tour.item.id}/detail`}
-        className="card job-card rounded-card h-100 shadow-lg"
+        className="tour-card"
         style={{ textDecoration: "none" }}
       >
-        <div className="row g-0">
-          {/* Left side - Company Logo */}
-          <div className="col-md-4 d-flex align-items-center justify-content-center">
-            <img
-              src={`${process.env.REACT_APP_URL}/api/tour/` + tour.item.image1}
-              className="card-img-top rounded img-fluid"
-              alt="event image"
-              style={{
-                height: "250px",
-                width: "auto",
-              }}
-            />
+        <div className="tour-card-image-wrapper">
+          <img
+            src={`${process.env.REACT_APP_URL}/api/tour/` + tour.item.image1}
+            className="tour-card-image"
+            alt={tour.item.name}
+          />
+          <div className="tour-card-overlay">
+            <span className="tour-card-view-details">View Details →</span>
           </div>
-          {/* Right side - Job Details */}
-          <div className="col-md-8">
-            <div className="card-body text-color">
-              <h3 className="card-title d-flex justify-content-between text-color-second">
-                <div>
-                  <b>{tour.item.name}</b>
-                </div>
-              </h3>
-              <p className="card-text text-dark">
-                {descriptionToShow(tour.item.description, 50)}
-              </p>
+        </div>
 
-              <div className="d-flex justify-content-between text-color-second mt-3">
-                <b>
-                  <span className="text-dark">From: </span>
-                  <span className="text-color">
-                    {tour.item.fromLocation.name}
-                  </span>
-                </b>
-                <b>
-                  <span className="text-dark">To: </span>
-                  <span className="text-color">
-                    {tour.item.toLocation.name}
-                  </span>
-                </b>
-              </div>
-              <div className="d-flex justify-content-left text-color-second mt-3">
-                <b>
-                  <span className="text-dark">Tour Time: </span>
-                  <span className="text-color">
-                    {formatDateFromEpoch(tour.item.startDate)}
-                  </span>
-                </b>
-              </div>
-              <div className="d-flex justify-content-between text-color-second mt-3">
-                <b>
-                  <span className="text-dark">Available Ticket: </span>
-                  <span className="text-color">
-                    {tour.item.availableTickets}
-                  </span>
-                </b>
-                <b>
-                  <span className="text-dark">Ticket Price: </span>
-                  <span className="text-color">
-                    &#8377;{tour.item.ticketPrice}
-                  </span>
-                </b>
-              </div>
+        <div className="tour-card-content">
+          <h3 className="tour-card-title">{tour.item.name}</h3>
+
+          <p className="tour-card-description">
+            {descriptionToShow(tour.item.description, 85)}
+          </p>
+
+          <div className="tour-card-locations">
+            <div className="tour-card-location">
+              <span className="tour-card-label">From</span>
+              <span className="tour-card-value">{tour.item.fromLocation.name}</span>
+            </div>
+            <div className="tour-card-location">
+              <span className="tour-card-label">To</span>
+              <span className="tour-card-value">{tour.item.toLocation.name}</span>
+            </div>
+          </div>
+
+          <div className="tour-card-info">
+            <div className="tour-card-info-item">
+              <span className="tour-card-label">Departure</span>
+              <span className="tour-card-value-small">
+                {formatDateFromEpoch(tour.item.startDate)}
+              </span>
+            </div>
+          </div>
+
+          <div className="tour-card-footer">
+            <div className="tour-card-tickets">
+              <span className="tour-card-label">Available</span>
+              <span className="tour-card-value">{tour.item.availableTickets} tickets</span>
+            </div>
+            <div className="tour-card-price">
+              ₹{tour.item.ticketPrice.toLocaleString()}
             </div>
           </div>
         </div>

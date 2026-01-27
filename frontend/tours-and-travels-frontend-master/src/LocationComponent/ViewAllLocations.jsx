@@ -3,6 +3,8 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "../TourComponent/ActionButtons.css";
+import "../styles/TableStyles.css";
 
 const ViewAllLocations = () => {
   const [allLocations, setAllCategories] = useState([]);
@@ -95,73 +97,58 @@ const ViewAllLocations = () => {
   };
 
   return (
-    <div className="mt-3">
-      <div
-        className="card form-card ms-2 me-2 mb-5 shadow-lg"
-        style={{
-          height: "45rem",
-        }}
-      >
-        <div
-          className="card-header custom-bg-text text-center bg-color"
-          style={{
-            borderRadius: "1em",
-            height: "50px",
-          }}
-        >
-          <h2>All Tour Locations</h2>
-        </div>
-        <div
-          className="card-body"
-          style={{
-            overflowY: "auto",
-          }}
-        >
-          <div className="table-responsive">
-            <table className="table table-hover text-color text-center">
-              <thead className="table-bordered border-color bg-color custom-bg-text">
-                <tr>
-                  <th scope="col">Location Id</th>
-                  <th scope="col">Location Name</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allLocations.map((location) => {
-                  return (
-                    <tr>
-                      <td>
-                        <b>{location.id}</b>
-                      </td>
-                      <td>
-                        <b>{location.name}</b>
-                      </td>
-                      <td>
-                        <b>{location.description}</b>
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => updateLocation(location)}
-                          className="btn btn-sm bg-color custom-bg-text ms-2"
-                        >
-                          Update
-                        </button>
+    <div className="saas-table-container">
+      <div className="saas-table-header">
+        <h2 className="saas-table-title">All Tour Locations</h2>
+        <button className="saas-add-button">
+          <span>+</span> New Location
+        </button>
+      </div>
+      <div className="saas-table-body">
+        <table className="saas-table">
+          <thead>
+            <tr>
+              <th>Location Id</th>
+              <th>Location Name</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allLocations.map((location) => {
+              return (
+                <tr key={location.id}>
+                  <td>
+                    <span className="saas-table-text-secondary">{location.id}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">{location.name}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{location.description}</span>
+                  </td>
+                  <td>
+                    <div className="action-buttons">
+                      <button
+                        onClick={() => updateLocation(location)}
+                        className="btn-action btn-update btn-sm"
+                      >
+                        Update
+                      </button>
 
-                        <button
-                          onClick={() => deleteLocation(location.id)}
-                          className="btn btn-sm bg-color custom-bg-text ms-2"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                      <button
+                        onClick={() => deleteLocation(location.id)}
+                        className="btn-action btn-delete btn-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

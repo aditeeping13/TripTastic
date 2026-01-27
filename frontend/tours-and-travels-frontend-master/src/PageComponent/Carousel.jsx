@@ -1,63 +1,51 @@
-import carousel1 from "../images/carousel_1.png";
+import React, { useState, useEffect } from "react";
+import heroBeach from "../images/hero_beach.png";
+import heroMountain from "../images/hero_mountain.png";
+import heroCity from "../images/hero_city.png";
+import "./Carousel.css";
 
 const Carousel = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const images = [heroBeach, heroMountain, heroCity];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
-    <div
-      id="carouselExampleCaptions"
-      class="carousel slide"
-      data-bs-ride="false"
-    >
-      <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
+    <div className="hero-section">
+      <div className="hero-slider">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`hero-slide ${index === currentSlide ? "active" : ""}`}
+            style={{ backgroundImage: `url(${image})` }}
+          >
+            <div className="hero-overlay"></div>
+          </div>
+        ))}
       </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src={carousel1} class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item">
-          <img src={carousel1} class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item">
-          <img src={carousel1} class="d-block w-100" alt="..." />
-        </div>
+
+      <div className="hero-content">
+        <h1 className="hero-title">Discover Your Next Adventure</h1>
+        <p className="hero-subtitle">
+          Explore curated travel experiences across breathtaking destinations
+        </p>
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+
+      <div className="hero-indicators">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            className={`hero-indicator ${index === currentSlide ? "active" : ""}`}
+            onClick={() => setCurrentSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 };

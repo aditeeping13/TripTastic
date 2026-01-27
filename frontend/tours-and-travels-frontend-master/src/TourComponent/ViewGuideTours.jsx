@@ -3,6 +3,8 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "./ActionButtons.css";
+import "../styles/TableStyles.css";
 
 const ViewGuideTours = () => {
   const [tours, setTours] = useState([]);
@@ -101,114 +103,96 @@ const ViewGuideTours = () => {
   };
 
   return (
-    <div className="mt-3">
-      <div
-        className="card form-card ms-2 me-2 mb-5 shadow-lg"
-        style={{
-          height: "45rem",
-        }}
-      >
-        <div
-          className="card-header custom-bg-text text-center bg-color"
-          style={{
-            borderRadius: "1em",
-            height: "50px",
-          }}
-        >
-          <h2>My Tours</h2>
-        </div>
-        <div
-          className="card-body"
-          style={{
-            overflowY: "auto",
-          }}
-        >
-          <div className="table-responsive">
-            <table className="table table-hover text-color text-center">
-              <thead className="table-bordered border-color bg-color custom-bg-text">
-                <tr>
-                  <th scope="col">Tour</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Tour Date</th>
-                  <th scope="col">From Location</th>
-                  <th scope="col">To Location</th>
-                  <th scope="col">Total Ticket</th>
-                  <th scope="col">Ticket Price</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tours.map((tour) => {
-                  return (
-                    <tr>
-                      <td>
-                        <img
-                          src={`${process.env.REACT_APP_URL}/api/tour/` + tour.image1}
-                          class="img-fluid"
-                          alt="event_pic"
-                          style={{
-                            maxHeight: "90px",
-                          }}
-                        />
-                      </td>
-                      <td>
-                        <b>{tour.name}</b>
-                      </td>
-                      <td>
-                        <b>{tour.description}</b>
-                      </td>
-                      <td>
-                        <b>
-                          {formatDateFromEpoch(tour.startDate) +
-                            " - " +
-                            formatDateFromEpoch(tour.endDate)}
-                        </b>
-                      </td>
-                      <td>
-                        <b>{tour.fromLocation.name}</b>
-                      </td>
-                      <td>
-                        <b>{tour.toLocation.name}</b>
-                      </td>
-                      <td>
-                        <b>{tour.totalTickets}</b>
-                      </td>
-                      <td>
-                        <b>&#8377;{tour.ticketPrice}</b>
-                      </td>
-                      <td>
-                        <b>{tour.status}</b>
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => viewTour(tour.id)}
-                          className="btn btn-sm bg-color custom-bg-text ms-2"
-                        >
-                          View
-                        </button>
+    <div className="saas-table-container">
+      <div className="saas-table-header">
+        <h2 className="saas-table-title">My Tours</h2>
+        <button className="saas-add-button">
+          <span>+</span> New Tour
+        </button>
+      </div>
+      <div className="saas-table-body">
+        <table className="saas-table">
+          <thead>
+            <tr>
+              <th>Tour</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Tour Date</th>
+              <th>From Location</th>
+              <th>To Location</th>
+              <th>Total Ticket</th>
+              <th>Ticket Price</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tours.map((tour) => {
+              return (
+                <tr key={tour.id}>
+                  <td>
+                    <img
+                      src={`${process.env.REACT_APP_URL}/api/tour/` + tour.image1}
+                      className="saas-table-image"
+                      alt="tour_pic"
+                    />
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">{tour.name}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{tour.description}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">
+                      {formatDateFromEpoch(tour.startDate)} - {formatDateFromEpoch(tour.endDate)}
+                    </span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{tour.fromLocation.name}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{tour.toLocation.name}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{tour.totalTickets}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">₹{tour.ticketPrice}</span>
+                  </td>
+                  <td>
+                    <span className={`saas-status-badge saas-status-${tour.status.toLowerCase()}`}>
+                      {tour.status}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="action-buttons">
+                      <button
+                        onClick={() => viewTour(tour.id)}
+                        className="btn-action btn-update btn-sm"
+                      >
+                        View
+                      </button>
 
-                        {(() => {
-                          if (tour.status !== "Deactivated") {
-                            return (
-                              <button
-                                onClick={() => deleteTour(tour.id)}
-                                className="btn btn-sm bg-color custom-bg-text ms-2"
-                              >
-                                Delete
-                              </button>
-                            );
-                          }
-                        })()}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                      {(() => {
+                        if (tour.status !== "Deactivated") {
+                          return (
+                            <button
+                              onClick={() => deleteTour(tour.id)}
+                              className="btn-action btn-delete btn-sm"
+                            >
+                              Delete
+                            </button>
+                          );
+                        }
+                      })()}
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

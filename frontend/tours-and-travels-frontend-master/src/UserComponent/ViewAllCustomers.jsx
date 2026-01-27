@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import React from "react";
+import "../styles/TableStyles.css";
 
 const ViewAllCustomers = () => {
   const [allEmployee, setAllEmployee] = useState([]);
@@ -38,71 +39,53 @@ const ViewAllCustomers = () => {
   };
 
   return (
-    <div className="mt-3">
-      <div
-        className="card form-card ms-2 me-2 mb-5 shadow-lg"
-        style={{
-          height: "45rem",
-        }}
-      >
-        <div
-          className="card-header custom-bg-text text-center bg-color"
-          style={{
-            borderRadius: "1em",
-            height: "50px",
-          }}
-        >
-          <h2>All Customers</h2>
-        </div>
-        <div
-          className="card-body"
-          style={{
-            overflowY: "auto",
-          }}
-        >
-          <div className="table-responsive">
-            <table className="table table-hover text-color text-center">
-              <thead className="table-bordered border-color bg-color custom-bg-text">
-                <tr>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">Email Id</th>
-                  <th scope="col">Phone No</th>
-                  <th scope="col">Address</th>
+    <div className="saas-table-container">
+      <div className="saas-table-header">
+        <h2 className="saas-table-title">All Customers</h2>
+      </div>
+      <div className="saas-table-body">
+        <table className="saas-table">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email Id</th>
+              <th>Phone No</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allEmployee.map((employee) => {
+              return (
+                <tr key={employee.id}>
+                  <td>
+                    <span className="saas-table-text-primary">{employee.firstName}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">{employee.lastName}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{employee.emailId}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{employee.phoneNo}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">
+                      {employee.address
+                        ? employee.address.street +
+                        ", " +
+                        employee.address.city +
+                        ", " +
+                        employee.address.pincode
+                        : "N/A"}
+                    </span>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {allEmployee.map((employee) => {
-                  return (
-                    <tr>
-                      <td>
-                        <b>{employee.firstName}</b>
-                      </td>
-                      <td>
-                        <b>{employee.lastName}</b>
-                      </td>
-                      <td>
-                        <b>{employee.emailId}</b>
-                      </td>
-                      <td>
-                        <b>{employee.phoneNo}</b>
-                      </td>
-                      <td>
-                        <b>
-                          {employee.address.street +
-                            ", " +
-                            employee.address.city +
-                            ", " +
-                            employee.address.pincode}
-                        </b>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

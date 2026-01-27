@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import Carousel from "./Carousel";
 import Footer from "../NavbarComponent/Footer";
-import { useNavigate } from "react-router-dom";
 import TourCard from "../TourComponent/TourCard";
+import "./HomePage.css";
 
 const HomePage = () => {
-  const navigate = useNavigate();
   const [locations, setLocations] = useState([]);
 
   const [eventName, setEventName] = useState("");
@@ -19,6 +17,7 @@ const HomePage = () => {
   const [tempEventToLocationId, setTempEventToLocationId] = useState("");
 
   const [tours, setTours] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const retrieveAllLocations = async () => {
     const response = await axios.get(
@@ -70,142 +69,166 @@ const HomePage = () => {
   };
 
   const searchEvents = async () => {
-    if (eventName !== "") {
-      const response = await axios.get(
-        `${process.env.REACT_APP_URL}/api/tour/fetch/name-wise?tourName=` + eventName
-      );
+    try {
+      if (eventName !== "") {
+        const response = await axios.get(
+          `${process.env.REACT_APP_URL}/api/tour/fetch/name-wise?tourName=` + eventName
+        );
 
-      return response.data;
-    } else if (
-      eventFromLocationId !== "" ||
-      eventFromLocationId !== "0" ||
-      eventToLocationId !== "" ||
-      eventToLocationId !== "0"
-    ) {
-      const response = await axios.get(
-        `${process.env.REACT_APP_URL}/api/tour/fetch/location-wise?fromLocationId=` +
+        return response.data;
+      } else if (
+        (eventFromLocationId !== "" && eventFromLocationId !== "0") ||
+        (eventToLocationId !== "" && eventToLocationId !== "0")
+      ) {
+        const response = await axios.get(
+          `${process.env.REACT_APP_URL}/api/tour/fetch/location-wise?fromLocationId=` +
           eventFromLocationId +
           "&toLocationId=" +
           eventToLocationId
-      );
-      return response.data;
+        );
+        return response.data;
+      }
+    } catch (error) {
+      console.error("Error searching tours:", error);
+      return null;
     }
   };
 
-  const searchEventByName = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    setEventName(tempEventName);
+    setHasSearched(true);
 
-    setTempEventName("");
-    setEventFromLocationId("");
-    setEventToLocationId("");
+    if (tempEventName) {
+      setEventName(tempEventName);
+      setEventFromLocationId("");
+      setEventToLocationId("");
+    } else {
+      setEventFromLocationId(tempEventFromLocationId);
+      setEventToLocationId(tempEventToLocationId);
+      setEventName("");
+    }
   };
 
-  const searchEventByCategory = (e) => {
-    e.preventDefault();
-    setEventFromLocationId(tempEventFromLocationId);
-    setEventToLocationId(tempEventToLocationId);
+  const handleClearSearch = () => {
+    setTempEventName("");
     setTempEventFromLocationId("");
     setTempEventToLocationId("");
     setEventName("");
+    setEventFromLocationId("");
+    setEventToLocationId("");
+    setHasSearched(false);
   };
 
   return (
-    <div className="container-fluid mb-2">
+    <div className="homepage">
       <Carousel />
-      <h5 className="text-color-second text-center mt-3">
-        Search Tours here..!!
-      </h5>
 
-      <div className="d-flex aligns-items-center justify-content-center">
-        <div className="row">
-          <div className="col-auto">
-            <div className="mt-3">
-              <form class="row g-3">
-                <div class="col-auto">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="city"
-                    name="eventName"
-                    onChange={(e) => setTempEventName(e.target.value)}
-                    value={tempEventName}
-                    placeholder="Search Tour here..."
-                  />
-                </div>
+      {/* Search Section */}
+      <div className="search-section">
+        <div className="search-container">
+          <h2 className="search-title">Find Your Perfect Tour</h2>
 
-                <div class="col-auto">
-                  <button
-                    type="submit"
-                    class="btn bg-color custom-bg-text mb-3"
-                    onClick={searchEventByName}
-                  >
-                    Search
-                  </button>
-                </div>
-              </form>
+          <form className="search-form" onSubmit={handleSearch}>
+            <div className="search-inputs">
+              <div className="search-input-group">
+                <label htmlFor="tourName" className="search-label">Tour Name</label>
+                <input
+                  type="text"
+                  id="tourName"
+                  className="search-input"
+                  placeholder="Search by tour name..."
+                  value={tempEventName}
+                  onChange={(e) => setTempEventName(e.target.value)}
+                />
+              </div>
+
+              <div className="search-divider">
+                <span className="search-divider-text">OR</span>
+              </div>
+
+              <div className="search-input-group">
+                <label htmlFor="fromLocation" className="search-label">From</label>
+                <select
+                  id="fromLocation"
+                  className="search-select"
+                  value={tempEventFromLocationId}
+                  onChange={(e) => setTempEventFromLocationId(e.target.value)}
+                >
+                  <option value="">Select origin</option>
+                  {locations.map((location) => (
+                    <option key={location.id} value={location.id}>
+                      {location.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="search-input-group">
+                <label htmlFor="toLocation" className="search-label">To</label>
+                <select
+                  id="toLocation"
+                  className="search-select"
+                  value={tempEventToLocationId}
+                  onChange={(e) => setTempEventToLocationId(e.target.value)}
+                >
+                  <option value="">Select destination</option>
+                  {locations.map((location) => (
+                    <option key={location.id} value={location.id}>
+                      {location.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
-          <div className="col">
-            <div className="mt-3">
-              <form class="row g-3">
-                <div class="col-auto">
-                  <select
-                    name="tempEventFromLocationId"
-                    onChange={(e) => setTempEventFromLocationId(e.target.value)}
-                    className="form-control"
-                    required
-                  >
-                    <option value="">From Tour Location</option>
 
-                    {locations.map((location) => {
-                      return (
-                        <option value={location.id}> {location.name} </option>
-                      );
-                    })}
-                  </select>
-                </div>
-
-                <div class="col-auto">
-                  <select
-                    name="tempEventToLocationId"
-                    onChange={(e) => setTempEventToLocationId(e.target.value)}
-                    className="form-control"
-                    required
-                  >
-                    <option value="">To Tour Location</option>
-
-                    {locations.map((location) => {
-                      return (
-                        <option value={location.id}> {location.name} </option>
-                      );
-                    })}
-                  </select>
-                </div>
-
-                <div class="col-auto">
-                  <button
-                    type="submit"
-                    class="btn bg-color custom-bg-text mb-3"
-                    onClick={searchEventByCategory}
-                  >
-                    Search
-                  </button>
-                </div>
-              </form>
+            <div className="search-actions">
+              <button type="submit" className="btn-search">
+                Search Tours
+              </button>
+              {hasSearched && (
+                <button
+                  type="button"
+                  className="btn-clear"
+                  onClick={handleClearSearch}
+                >
+                  Clear Search
+                </button>
+              )}
             </div>
-          </div>
+          </form>
         </div>
       </div>
 
-      <div className="col-md-12 mt-3 mb-5">
-        <div className="row row-cols-1 row-cols-md-2 g-4">
-          {tours.map((tour) => {
-            return <TourCard item={tour} key={tour.id} />;
-          })}
+      {/* Tours Section */}
+      <div className="tours-section">
+        <div className="tours-container">
+          {tours.length === 0 && hasSearched ? (
+            <div className="no-tours">
+              <h3 className="no-tours-title">No tours found</h3>
+              <p className="no-tours-text">
+                Try searching with different locations or check back later for new tours.
+              </p>
+            </div>
+          ) : tours.length > 0 ? (
+            <>
+              <div className="tours-header">
+                <h2 className="tours-title">
+                  {hasSearched ? "Search Results" : "Featured Tours"}
+                </h2>
+                <p className="tours-subtitle">
+                  {tours.length} {tours.length === 1 ? "tour" : "tours"} available
+                </p>
+              </div>
+              <div className="tours-grid">
+                {tours.map((tour) => (
+                  <TourCard item={tour} key={tour.id} />
+                ))}
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
-      <hr />
+
       <Footer />
     </div>
   );

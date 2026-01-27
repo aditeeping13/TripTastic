@@ -1,0 +1,262 @@
+/* ============================================
+   MODERN SAAS TABLE STYLES
+   Inspired by Stripe & Airbnb Design Systems
+   ============================================ */
+
+/* Table Container */
+.saas-table-container {
+  background: #FFFFFF;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  margin: 1.5rem;
+}
+
+/* Table Header Section */
+.saas-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.saas-table-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.saas-add-button {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.625rem 1.25rem;
+  background-color: #2563EB;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.saas-add-button:hover {
+  background-color: #1D4ED8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.25);
+}
+
+/* Table Body Wrapper */
+.saas-table-body {
+  overflow-y: auto;
+  max-height: calc(100vh - 300px);
+}
+
+/* Table Styles */
+.saas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Table Header */
+.saas-table thead {
+  position: sticky;
+  top: 0;
+  background-color: #F9FAFB;
+  z-index: 10;
+}
+
+.saas-table thead th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6B7280;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.saas-table thead th:first-child {
+  padding-left: 1.5rem;
+}
+
+.saas-table thead th:last-child {
+  padding-right: 1.5rem;
+  text-align: center;
+}
+
+/* Table Body */
+.saas-table tbody tr {
+  border-bottom: 1px solid #E5E7EB;
+  transition: background-color 0.15s ease;
+}
+
+.saas-table tbody tr:hover {
+  background-color: #F9FAFB;
+}
+
+.saas-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.saas-table tbody td {
+  font-size: 0.875rem;
+  color: #111827;
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.saas-table tbody td:first-child {
+  padding-left: 1.5rem;
+  font-weight: 500;
+}
+
+.saas-table tbody td:last-child {
+  padding-right: 1.5rem;
+  text-align: center;
+}
+
+/* Table Cell Content */
+.saas-table-text-primary {
+  color: #111827;
+  font-weight: 500;
+}
+
+.saas-table-text-secondary {
+  color: #6B7280;
+  font-weight: 400;
+}
+
+/* Image in Table */
+.saas-table-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  border: 1px solid #E5E7EB;
+}
+
+/* Status Badges */
+.saas-status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.saas-status-active {
+  background-color: #D1FAE5;
+  color: #065F46;
+}
+
+.saas-status-pending {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+.saas-status-confirmed {
+  background-color: #DBEAFE;
+  color: #1E40AF;
+}
+
+.saas-status-deactivated {
+  background-color: #F3F4F6;
+  color: #6B7280;
+}
+
+/* Action Buttons in Table */
+.saas-table tbody td .action-buttons {
+  justify-content: center;
+}
+
+/* Empty State */
+.saas-table-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #6B7280;
+}
+
+.saas-table-empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.3;
+}
+
+.saas-table-empty-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+}
+
+.saas-table-empty-text {
+  font-size: 0.875rem;
+  color: #6B7280;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .saas-table-container {
+    margin: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .saas-table-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .saas-add-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .saas-table thead th,
+  .saas-table tbody td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .saas-table thead th:first-child,
+  .saas-table tbody td:first-child {
+    padding-left: 1rem;
+  }
+
+  .saas-table thead th:last-child,
+  .saas-table tbody td:last-child {
+    padding-right: 1rem;
+  }
+
+  .saas-table-image {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Scrollbar Styling */
+.saas-table-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.saas-table-body::-webkit-scrollbar-track {
+  background: #F9FAFB;
+}
+
+.saas-table-body::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 4px;
+}
+
+.saas-table-body::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF;
+}
