@@ -21,16 +21,20 @@
   padding: 0 1.5rem;
 }
 
+.filter-header {
+  margin-bottom: 2rem;
+}
+
 .search-title {
   font-family: var(--font-accent);
   font-size: 2rem;
   font-weight: 600;
   color: var(--color-text-primary);
   text-align: center;
-  margin: 0 0 2rem 0;
+  margin: 0;
 }
 
-.search-form {
+.filter-section {
   background: var(--color-bg-primary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
@@ -38,11 +42,56 @@
   box-shadow: var(--shadow-md);
 }
 
+.filter-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.filter-section-title {
+  font-family: var(--font-primary);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.btn-clear-all {
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.btn-clear-all:hover {
+  background-color: var(--color-bg-accent);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text-primary);
+}
+
+
+
 .search-inputs {
   display: grid;
-  grid-template-columns: 2fr auto 1fr 1fr;
-  gap: 1.5rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
   align-items: end;
+  margin-bottom: 1.5rem;
+}
+
+.sort-section {
+  display: grid;
+  grid-template-columns: 200px;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
@@ -201,8 +250,12 @@
 
 @media (max-width: 992px) {
   .search-inputs {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
+  }
+
+  .sort-section {
+    grid-template-columns: 1fr;
   }
 
   .search-divider {
@@ -223,11 +276,28 @@
 
   .search-title {
     font-size: 1.5rem;
+  }
+
+  .filter-header {
     margin-bottom: 1.5rem;
   }
 
-  .search-form {
+  .filter-section {
     padding: 1.5rem;
+  }
+
+  .filter-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .btn-clear-all {
+    width: 100%;
+  }
+
+  .search-inputs {
+    grid-template-columns: 1fr;
   }
 
   .search-actions {
@@ -260,7 +330,7 @@
     padding: 0 1rem;
   }
 
-  .search-form {
+  .filter-section {
     padding: 1.25rem;
   }
 
