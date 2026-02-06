@@ -239,6 +239,31 @@ Frontend will start on: `http://localhost:3000`
 - **Frontend:** http://localhost:3000
 - **Backend API:** http://localhost:8080/api
 
+## 🌐 Live Demo
+
+### Deployed Application
+
+- **Frontend URL:** https://triptastic-tourism.netlify.app/
+- **Backend API:** https://triptastic-aaux.onrender.com/api
+
+### Demo Admin Credentials
+
+You can login as an admin to test all features:
+
+```
+Email: demo.admin@demo.com
+Password: 123456
+Role: Admin
+```
+
+**Admin Features:**
+- Manage all tours, locations, lodging, and transport
+- View all bookings and customers
+- Manage tour guides
+- Full access to dashboard analytics
+
+**Note:** The demo admin account is pre-configured in the system for testing purposes.
+
 ## 📁 Project Structure
 
 ### Frontend Components
