@@ -1,0 +1,184 @@
+/* ============================================
+   MINIMALIST TOUR CARD
+   ============================================ */
+
+.tour-card {
+  display: block;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+  height: 100%;
+  box-shadow: var(--shadow-sm);
+}
+
+.tour-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-light);
+}
+
+.tour-card:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* Image Section */
+.tour-card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  background-color: var(--color-bg-accent);
+}
+
+.tour-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.tour-card:hover .tour-card-image {
+  transform: scale(1.05);
+}
+
+.tour-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(37, 99, 235, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.tour-card:hover .tour-card-overlay {
+  opacity: 1;
+}
+
+.tour-card-view-details {
+  font-family: var(--font-accent);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-bg-primary);
+  letter-spacing: 0.02em;
+}
+
+/* Content Section */
+.tour-card-content {
+  padding: 1.5rem;
+}
+
+.tour-card-title {
+  font-family: var(--font-accent);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+}
+
+.tour-card-description {
+  font-family: var(--font-primary);
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 1.25rem 0;
+}
+
+/* Locations */
+.tour-card-locations {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tour-card-location {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Info Section */
+.tour-card-info {
+  margin-bottom: 1.25rem;
+}
+
+.tour-card-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Labels and Values */
+.tour-card-label {
+  font-family: var(--font-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tour-card-value {
+  font-family: var(--font-primary);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.tour-card-value-small {
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+/* Footer */
+.tour-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.tour-card-tickets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tour-card-price {
+  font-family: var(--font-accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tour-card-image-wrapper {
+    height: 200px;
+  }
+
+  .tour-card-content {
+    padding: 1.25rem;
+  }
+
+  .tour-card-title {
+    font-size: 1.125rem;
+  }
+
+  .tour-card-price {
+    font-size: 1.25rem;
+  }
+}

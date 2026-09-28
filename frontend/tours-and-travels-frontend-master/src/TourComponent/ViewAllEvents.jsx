@@ -3,6 +3,8 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import "./ActionButtons.css";
+import "../styles/TableStyles.css";
 
 const ViewAllEvents = () => {
   const [allEvents, setAllEvents] = useState([]);
@@ -99,110 +101,87 @@ const ViewAllEvents = () => {
   };
 
   return (
-    <div className="mt-3">
-      <div
-        className="card form-card ms-2 me-2 mb-5 shadow-lg"
-        style={{
-          height: "45rem",
-        }}
-      >
-        <div
-          className="card-header custom-bg-text text-center bg-color"
-          style={{
-            borderRadius: "1em",
-            height: "50px",
-          }}
-        >
-          <h2>All Events</h2>
-        </div>
-        <div
-          className="card-body"
-          style={{
-            overflowY: "auto",
-          }}
-        >
-          <div className="table-responsive">
-            <table className="table table-hover text-color text-center">
-              <thead className="table-bordered border-color bg-color custom-bg-text">
-                <tr>
-                  <th scope="col">Event</th>
-                  <th scope="col">Event Name</th>
-                  {/* <th scope="col">Description</th> */}
-                  <th scope="col">Category</th>
-                  <th scope="col">Venue Type</th>
-                  <th scope="col">Venue Name</th>
-                  <th scope="col">Location</th>
-                  <th scope="col">Total Tickets</th>
-                  <th scope="col">Ticket Price</th>
-                  <th scope="col">Event Time</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allEvents.map((event) => {
-                  return (
-                    <tr>
-                      <td>
-                        <img
-                          src={`${process.env.REACT_APP_URL}/api/event/` + event.image}
-                          class="img-fluid"
-                          alt="event_pic"
-                          style={{
-                            maxWidth: "90px",
-                          }}
-                        />
-                      </td>
-                      <td>
-                        <b>{event.name}</b>
-                      </td>
-                      {/* <td>
-                        <b>{event.description}</b>
-                      </td> */}
-                      <td>
-                        <b>{event.category.name}</b>
-                      </td>
-                      <td>
-                        <b>{event.venueType}</b>
-                      </td>
-                      <td>
-                        <b>{event.venueName}</b>
-                      </td>
-                      <td>
-                        <b>{event.location}</b>
-                      </td>
-                      <td>
-                        <b>{event.noOfTickets}</b>
-                      </td>
-                      <td>
-                        <b>{event.ticketPrice}</b>
-                      </td>
-                      <td>
-                        <b>{formatDateFromEpoch(event.startDate)}</b>
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => updateEvent(event)}
-                          className="btn btn-sm bg-color custom-bg-text ms-2"
-                        >
-                          Update
-                        </button>
-                        <ToastContainer />
+    <div className="saas-table-container">
+      <div className="saas-table-header">
+        <h2 className="saas-table-title">All Events</h2>
+        <button className="saas-add-button">
+          <span>+</span> New Event
+        </button>
+      </div>
+      <div className="saas-table-body">
+        <table className="saas-table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Event Name</th>
+              <th>Category</th>
+              <th>Venue Type</th>
+              <th>Venue Name</th>
+              <th>Location</th>
+              <th>Total Tickets</th>
+              <th>Ticket Price</th>
+              <th>Event Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allEvents.map((event) => {
+              return (
+                <tr key={event.id}>
+                  <td>
+                    <img
+                      src={`${process.env.REACT_APP_URL}/api/event/` + event.image}
+                      className="saas-table-image"
+                      alt="event_pic"
+                    />
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">{event.name}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{event.category.name}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{event.venueType}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{event.venueName}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{event.location}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{event.noOfTickets}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-primary">₹{event.ticketPrice}</span>
+                  </td>
+                  <td>
+                    <span className="saas-table-text-secondary">{formatDateFromEpoch(event.startDate)}</span>
+                  </td>
+                  <td>
+                    <div className="action-buttons">
+                      <button
+                        onClick={() => updateEvent(event)}
+                        className="btn-action btn-update btn-sm"
+                      >
+                        Update
+                      </button>
 
-                        <button
-                          onClick={() => deleteEvent(event.id)}
-                          className="btn btn-sm bg-color custom-bg-text ms-2"
-                        >
-                          Delete
-                        </button>
-                        <ToastContainer />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                      <button
+                        onClick={() => deleteEvent(event.id)}
+                        className="btn-action btn-delete btn-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                    <ToastContainer />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -1,0 +1,63 @@
+/* ============================================
+   MINIMALIST ACTION BUTTONS
+   ============================================ */
+
+/* Action Button Container - Always Side by Side */
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+/* Base Button Styles */
+.btn-action {
+  font-family: var(--font-primary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Update Button - Primary Style */
+.btn-update {
+  background-color: var(--color-primary);
+  color: var(--color-bg-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-update:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Delete Button - Danger Style */
+.btn-delete {
+  background-color: transparent;
+  color: #EF4444;
+  border-color: #EF4444;
+}
+
+.btn-delete:hover {
+  background-color: #EF4444;
+  color: var(--color-bg-primary);
+  border-color: #DC2626;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Small Button Variant */
+.btn-sm {
+  padding: 0.375rem 0.875rem;
+  font-size: 0.8125rem;
+}

@@ -1,100 +1,79 @@
-/* ===================================
-   TripTastic - Minimalist Professional Design System
-   =================================== */
+/* ============================================
+   MINIMALIST PROFESSIONAL TRAVEL BOOKING UI
+   ============================================ */
 
-/* CSS Variables - Design Tokens */
+/* -------------------- ROOT VARIABLES -------------------- */
 :root {
-  /* Colors */
-  --color-white: #FFFFFF;
-  --color-background: #FAFBFC;
-  --color-grey-50: #F8F9FA;
-  --color-grey-100: #F1F3F5;
-  --color-grey-200: #E9ECEF;
-  --color-grey-300: #DEE2E6;
-  --color-grey-400: #CED4DA;
-  --color-grey-500: #ADB5BD;
-  --color-grey-600: #6C757D;
-  --color-grey-700: #495057;
-  --color-grey-800: #343A40;
-  --color-grey-900: #212529;
-
-  --color-text-primary: #2C3E50;
-  --color-text-secondary: #5A6C7D;
-  --color-text-muted: #8B95A1;
-
-  --color-accent: #3498DB;
-  --color-accent-hover: #2980B9;
-  --color-accent-light: #EBF5FB;
-
-  --color-success: #27AE60;
-  --color-border: #E0E0E0;
-  --color-border-light: #F0F0F0;
-
   /* Typography */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-accent: 'Montserrat', sans-serif;
 
-  /* Font Sizes */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 3rem;
+  /* Color Palette - Minimalist & Professional */
+  --color-primary: #2563EB;
+  --color-primary-dark: #1E40AF;
+  --color-primary-light: #3B82F6;
 
-  /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
 
-  /* Shadows */
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
+
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F9FAFB;
+  --color-bg-accent: #F3F4F6;
+
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+
+  /* Spacing System */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* Shadows - Soft & Subtle */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
   /* Border Radius */
   --radius-sm: 0.375rem;
-  --radius-base: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-  --radius-full: 9999px;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
 
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
-  --transition-base: 250ms ease-in-out;
-  --transition-slow: 350ms ease-in-out;
+  --transition-base: 200ms ease-in-out;
+  --transition-slow: 300ms ease-in-out;
 }
 
-/* Global Styles */
+/* -------------------- BASE STYLES -------------------- */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  padding: 0;
   font-family: var(--font-primary);
-  font-size: var(--text-base);
+  font-size: 16px;
   line-height: 1.6;
   color: var(--color-text-primary);
-  background-color: var(--color-white);
+  background-color: var(--color-bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
 }
 
 h1,
@@ -103,191 +82,275 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading);
+  font-family: var(--font-accent);
   font-weight: 600;
   line-height: 1.2;
+  margin-top: 0;
   color: var(--color-text-primary);
 }
 
 h1 {
-  font-size: var(--text-5xl);
+  font-size: 2.5rem;
 }
 
 h2 {
-  font-size: var(--text-4xl);
+  font-size: 2rem;
 }
 
 h3 {
-  font-size: var(--text-3xl);
+  font-size: 1.5rem;
 }
 
 h4 {
-  font-size: var(--text-2xl);
+  font-size: 1.25rem;
 }
 
 h5 {
-  font-size: var(--text-xl);
+  font-size: 1.125rem;
 }
 
 h6 {
-  font-size: var(--text-lg);
+  font-size: 1rem;
 }
 
 p {
-  margin-bottom: var(--space-4);
-  color: var(--color-text-secondary);
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
 }
 
-a {
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: color var(--transition-fast);
+/* -------------------- UTILITY CLASSES -------------------- */
+
+/* Background Colors */
+.custom-bg,
+.bg-primary {
+  background-color: var(--color-bg-primary);
 }
 
-a:hover {
-  color: var(--color-accent-hover);
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-/* Utility Classes */
-.custom-bg {
-  background-color: var(--color-white);
-}
-
-.text-color {
-  color: var(--color-accent);
-}
-
-.text-color-second {
-  color: var(--color-text-primary);
-}
-
-.border-color {
-  border-color: var(--color-border);
-}
-
-.custom-bg-text {
-  color: var(--color-white);
+.bg-secondary {
+  background-color: var(--color-bg-secondary);
 }
 
 .bg-color {
-  background-color: var(--color-accent);
+  background-color: var(--color-primary);
 }
 
-/* Card Styles */
-.rounded-card {
-  padding: var(--space-8) var(--space-6);
-  border-radius: var(--radius-lg);
-  background: var(--color-white);
-  border: 1px solid var(--color-border-light);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-base);
+.bg-color:hover {
+  background-color: var(--color-primary-dark);
 }
 
-.rounded-card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+/* Text Colors */
+.text-color,
+.text-color-second {
+  color: var(--color-primary);
 }
 
-.form-card {
-  padding: var(--space-8);
-  border-radius: var(--radius-md);
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-base);
-}
-
-.job-card {
-  transition: all var(--transition-base);
-  border: 1px solid var(--color-border-light);
-  background: var(--color-white);
-}
-
-.job-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--color-border);
-}
-
-/* Profile Photo */
-.profile-photo {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border: 2px solid var(--color-border);
-  box-shadow: var(--shadow-base);
-  border-radius: var(--radius-full);
-  transition: all var(--transition-base);
-}
-
-.profile-photo:hover {
-  box-shadow: var(--shadow-md);
-}
-
-/* Button Styles */
-.btn-primary-custom {
-  background-color: var(--color-accent);
-  color: var(--color-white);
-  border: none;
-  padding: var(--space-3) var(--space-6);
-  border-radius: var(--radius-base);
-  font-weight: 500;
-  font-size: var(--text-base);
-  transition: all var(--transition-fast);
-  cursor: pointer;
-}
-
-.btn-primary-custom:hover {
-  background-color: var(--color-accent-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.btn-outline-custom {
-  background-color: transparent;
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  padding: var(--space-3) var(--space-6);
-  border-radius: var(--radius-base);
-  font-weight: 500;
-  font-size: var(--text-base);
-  transition: all var(--transition-fast);
-  cursor: pointer;
-}
-
-.btn-outline-custom:hover {
-  background-color: var(--color-accent);
-  color: var(--color-white);
-}
-
-/* Container Utilities */
-.container-minimal {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--space-6);
-}
-
-.section-spacing {
-  padding: var(--space-20) 0;
-}
-
-/* Text Utilities */
-.text-muted {
-  color: var(--color-text-muted);
+.text-primary {
+  color: var(--color-text-primary);
 }
 
 .text-secondary {
   color: var(--color-text-secondary);
 }
 
-/* Responsive Typography */
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.custom-bg-text {
+  color: var(--color-bg-primary);
+}
+
+/* Border Colors */
+.border-color {
+  border-color: var(--color-primary);
+}
+
+.border-subtle {
+  border: 1px solid var(--color-border);
+}
+
+/* -------------------- CARD COMPONENTS -------------------- */
+
+/* Modern Card - Minimalist Design */
+.rounded-card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.rounded-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+/* Form Card */
+.form-card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Tour/Job Card */
+.job-card {
+  transition: all var(--transition-base);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-primary);
+}
+
+.job-card:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-border-light);
+}
+
+.job-card:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* -------------------- BUTTONS -------------------- */
+
+.btn-primary-custom {
+  background-color: var(--color-primary);
+  color: var(--color-bg-primary);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.btn-primary-custom:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary-custom {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.btn-secondary-custom:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg-primary);
+}
+
+/* -------------------- FORMS -------------------- */
+
+.form-control {
+  font-family: var(--font-primary);
+  font-size: 0.9375rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  transition: all var(--transition-fast);
+}
+
+.form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+/* -------------------- IMAGES -------------------- */
+
+.profile-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  border-radius: 50%;
+}
+
+/* -------------------- RESPONSIVE -------------------- */
+
 @media (max-width: 768px) {
   :root {
-    --text-5xl: 2.25rem;
-    --text-4xl: 1.875rem;
-    --text-3xl: 1.5rem;
+    --spacing-xl: 1.5rem;
+    --spacing-2xl: 2rem;
+    --spacing-3xl: 2.5rem;
   }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  .profile-photo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .rounded-card {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+/* -------------------- ANIMATIONS -------------------- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-slow) ease-out;
+}
+
+/* -------------------- ACCESSIBILITY -------------------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }

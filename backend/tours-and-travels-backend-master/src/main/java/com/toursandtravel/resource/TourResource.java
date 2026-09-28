@@ -667,7 +667,8 @@ public class TourResource {
 		String currentTime = String
 				.valueOf(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
-		if (fromLocationId == null || toLocationId == null) {
+		if (fromLocationId == null || fromLocationId.trim().isEmpty() || 
+			toLocationId == null || toLocationId.trim().isEmpty()) {
 			response.setResponseMessage("missing input");
 			response.setSuccess(false);
 

@@ -169,7 +169,7 @@ public class BookingResource {
 			response.setResponseMessage("Bookings not found");
 			response.setSuccess(false);
 
-			return new ResponseEntity<BookingResponseDto>(response, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<BookingResponseDto>(response, HttpStatus.OK);
 		}
 
 		response.setBookings(bookings);
