@@ -89,11 +89,13 @@ const ViewAllTourGuides = () => {
                       </td>
                       <td>
                         <b>
-                          {employee.address.street +
+                          {employee.address
+                            ? employee.address.street +
                             ", " +
                             employee.address.city +
                             ", " +
-                            employee.address.pincode}
+                            employee.address.pincode
+                            : "N/A"}
                         </b>
                       </td>
                     </tr>

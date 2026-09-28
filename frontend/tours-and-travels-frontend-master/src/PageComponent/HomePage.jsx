@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import Carousel from "./Carousel";
 import Footer from "../NavbarComponent/Footer";
@@ -84,9 +83,9 @@ const HomePage = () => {
     ) {
       const response = await axios.get(
         `${process.env.REACT_APP_URL}/api/tour/fetch/location-wise?fromLocationId=` +
-          eventFromLocationId +
-          "&toLocationId=" +
-          eventToLocationId
+        eventFromLocationId +
+        "&toLocationId=" +
+        eventToLocationId
       );
       return response.data;
     }
@@ -110,102 +109,220 @@ const HomePage = () => {
     setEventName("");
   };
 
+  // Popular destinations data
+  const popularDestinations = [
+    { name: "Maldives", icon: "🏝️" },
+    { name: "Tulum", icon: "🏖️" },
+    { name: "Amalfi Coast", icon: "🌊" },
+    { name: "Bora Bora", icon: "🏔️" },
+    { name: "Seychelles", icon: "🌴" },
+    { name: "Lake Como", icon: "⛵" }
+  ];
+
+  // Search bar component to pass to Carousel
+  const searchBar = (
+    <div className="row g-3 align-items-end">
+      <div className="col-md-4">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search tours..."
+          value={tempEventName}
+          onChange={(e) => setTempEventName(e.target.value)}
+          style={{
+            border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius-base)',
+            padding: 'var(--space-3) var(--space-4)',
+            fontSize: 'var(--text-base)',
+            fontFamily: 'var(--font-primary)'
+          }}
+        />
+      </div>
+      <div className="col-md-3">
+        <select
+          className="form-control"
+          value={tempEventFromLocationId}
+          onChange={(e) => setTempEventFromLocationId(e.target.value)}
+          style={{
+            border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius-base)',
+            padding: 'var(--space-3) var(--space-4)',
+            fontSize: 'var(--text-base)',
+            fontFamily: 'var(--font-primary)'
+          }}
+        >
+          <option value="">From Location</option>
+          {locations.map((location) => (
+            <option key={location.id} value={location.id}>
+              {location.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="col-md-3">
+        <select
+          className="form-control"
+          value={tempEventToLocationId}
+          onChange={(e) => setTempEventToLocationId(e.target.value)}
+          style={{
+            border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius-base)',
+            padding: 'var(--space-3) var(--space-4)',
+            fontSize: 'var(--text-base)',
+            fontFamily: 'var(--font-primary)'
+          }}
+        >
+          <option value="">To Location</option>
+          {locations.map((location) => (
+            <option key={location.id} value={location.id}>
+              {location.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="col-md-2">
+        <button
+          className="btn w-100"
+          onClick={(e) => {
+            if (tempEventName) {
+              searchEventByName(e);
+            } else {
+              searchEventByCategory(e);
+            }
+          }}
+          style={{
+            background: 'var(--color-accent)',
+            color: 'white',
+            border: 'none',
+            borderRadius: 'var(--radius-base)',
+            padding: 'var(--space-3) var(--space-4)',
+            fontSize: 'var(--text-base)',
+            fontWeight: '500',
+            fontFamily: 'var(--font-primary)',
+            transition: 'all var(--transition-fast)',
+            cursor: 'pointer'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'var(--color-accent-hover)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'var(--color-accent)';
+          }}
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="container-fluid mb-2">
-      <Carousel />
-      <h5 className="text-color-second text-center mt-3">
-        Search Tours here..!!
-      </h5>
+    <div style={{ background: 'var(--color-white)' }}>
+      {/* Hero Section with Integrated Search */}
+      <Carousel searchBar={searchBar} />
 
-      <div className="d-flex aligns-items-center justify-content-center">
-        <div className="row">
-          <div className="col-auto">
-            <div className="mt-3">
-              <form class="row g-3">
-                <div class="col-auto">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="city"
-                    name="eventName"
-                    onChange={(e) => setTempEventName(e.target.value)}
-                    value={tempEventName}
-                    placeholder="Search Tour here..."
-                  />
+      {/* Popular Destinations Section */}
+      <div style={{
+        padding: 'var(--space-20) var(--space-6)',
+        background: 'var(--color-background)'
+      }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <h2 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'var(--text-3xl)',
+            fontWeight: '600',
+            color: 'var(--color-text-primary)',
+            textAlign: 'center',
+            marginBottom: 'var(--space-12)'
+          }}>
+            Popular Destinations
+          </h2>
+          <div className="row g-4 justify-content-center">
+            {popularDestinations.map((dest, index) => (
+              <div key={index} className="col-6 col-md-4 col-lg-2 text-center">
+                <div style={{
+                  width: '120px',
+                  height: '120px',
+                  borderRadius: 'var(--radius-full)',
+                  background: 'var(--color-grey-100)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto var(--space-3)',
+                  fontSize: '3rem',
+                  transition: 'all var(--transition-base)',
+                  cursor: 'pointer',
+                  border: '2px solid var(--color-border-light)'
+                }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  {dest.icon}
                 </div>
-
-                <div class="col-auto">
-                  <button
-                    type="submit"
-                    class="btn bg-color custom-bg-text mb-3"
-                    onClick={searchEventByName}
-                  >
-                    Search
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div className="col">
-            <div className="mt-3">
-              <form class="row g-3">
-                <div class="col-auto">
-                  <select
-                    name="tempEventFromLocationId"
-                    onChange={(e) => setTempEventFromLocationId(e.target.value)}
-                    className="form-control"
-                    required
-                  >
-                    <option value="">From Tour Location</option>
-
-                    {locations.map((location) => {
-                      return (
-                        <option value={location.id}> {location.name} </option>
-                      );
-                    })}
-                  </select>
-                </div>
-
-                <div class="col-auto">
-                  <select
-                    name="tempEventToLocationId"
-                    onChange={(e) => setTempEventToLocationId(e.target.value)}
-                    className="form-control"
-                    required
-                  >
-                    <option value="">To Tour Location</option>
-
-                    {locations.map((location) => {
-                      return (
-                        <option value={location.id}> {location.name} </option>
-                      );
-                    })}
-                  </select>
-                </div>
-
-                <div class="col-auto">
-                  <button
-                    type="submit"
-                    class="btn bg-color custom-bg-text mb-3"
-                    onClick={searchEventByCategory}
-                  >
-                    Search
-                  </button>
-                </div>
-              </form>
-            </div>
+                <p style={{
+                  fontFamily: 'var(--font-primary)',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: '500',
+                  color: 'var(--color-text-primary)',
+                  margin: 0
+                }}>
+                  {dest.name}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      <div className="col-md-12 mt-3 mb-5">
-        <div className="row row-cols-1 row-cols-md-2 g-4">
-          {tours.map((tour) => {
-            return <TourCard item={tour} key={tour.id} />;
-          })}
+      {/* Featured Tours Section */}
+      <div style={{
+        padding: 'var(--space-20) var(--space-6)',
+        background: 'var(--color-white)'
+      }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+          <h2 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'var(--text-3xl)',
+            fontWeight: '600',
+            color: 'var(--color-text-primary)',
+            marginBottom: 'var(--space-3)'
+          }}>
+            {eventName || eventFromLocationId || eventToLocationId
+              ? "Search Results"
+              : "Featured Tours"}
+          </h2>
+          <p style={{
+            color: 'var(--color-text-secondary)',
+            fontSize: 'var(--text-lg)',
+            marginBottom: 'var(--space-12)'
+          }}>
+            Discover unforgettable experiences curated just for you
+          </p>
+
+          <div className="row row-cols-1 row-cols-md-1 g-5">
+            {tours.length > 0 ? (
+              tours.map((tour) => {
+                return <TourCard item={tour} key={tour.id} />;
+              })
+            ) : (
+              <div className="col text-center" style={{ padding: 'var(--space-20) 0' }}>
+                <p style={{
+                  color: 'var(--color-text-muted)',
+                  fontSize: 'var(--text-lg)'
+                }}>
+                  No tours found. Try adjusting your search criteria.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-      <hr />
+
       <Footer />
     </div>
   );
